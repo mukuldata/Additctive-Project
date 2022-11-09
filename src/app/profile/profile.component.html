@@ -1,0 +1,101 @@
+<!-- Button trigger modal -->
+<nav class="navbar bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+            <span> Addictive Media Form </span>
+        </a>
+        <form class="d-flex" role="search">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="addUsers()">Add Users </button>
+        </form>
+    </div>
+</nav>
+
+<!-- Search Bar  -->
+<nav class="navbar mt-3 ">
+    <input type="text" class="form-control " name="name" [(ngModel)]="userData.name" (ngModelChange)="search()" placeholder="Search Users By Name">
+</nav>
+
+<table class="table table-hov table-bordered mt-3">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" (click)="sort('name')" >Name &nbsp;<i class="fa fa-sort"></i></th>
+            <th scope="col">Date of Birth</th>
+            <th scope="col">Country</th>
+            <th scope="col">Action</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        <tr *ngFor="let val of userData | orderBy : key :reverse  |paginate: {itemsPerPage:5 ,currentPage :p}">
+        <td >{{val.name}}</td>
+        <td>{{val.dob}}</td>
+        <td>{{val.country}}</td>
+
+        <td>
+            <button type="button" class="btn btn-danger mx-4" (click)="deleteUserDetails(val)"> Delete</button>
+        </td>
+       </tr>
+
+
+    </tbody>
+</table>
+<pagination-controls (pageChange)="p =$event"></pagination-controls>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal"  data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">User Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formValue">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Name</label>
+                        <input type="text" formControlName="name" value="" class="form-control" id="exampleInputEmail1" placeholder="Enter you name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Date Of Birth </label>
+                        <input  formControlName="dob" id="exampleInputEmail1" type="date" class="form-control" value="dd-mm-yy"
+                        max="2022-11-01">
+                        
+                    </div>
+
+                    <div class="mb-3  typeHead">
+                        <label  for="exampleInputEmail1" class="form-label">Country</label>
+                        <input formControlName="country" value="" id="exampleInputEmail1" type="text" class="form-control" [(ngModel)]="searchTerm"
+                            placeholder="Country name" (keyup)="filterCountryList()">
+                        <ul *ngIf="filteredResult.length>0">
+                            <li *ngFor="let c of filteredResult" (click)="selectCountry(c.name)">
+                                <span>{{c.name}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                      
+                       
+                      
+    
+                    
+                </form>
+
+            </div>
+            <div class="modal-footer">
+             <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+             <button type="button" class="btn btn-primary" (click)="postUserDetails()" > Add </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+

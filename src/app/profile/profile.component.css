@@ -1,0 +1,29 @@
+ .typeHead ul{
+        background: #fff;
+        width: 439px;
+ }
+ .typeHead li{
+            list-style-type:none;
+            padding: 6px 18px;
+            margin-left: -40px;
+            cursor: pointer;
+        }
+        .typeHead li:hover{
+            background:#ccc;
+        }
+
+
+.navbar-brand{
+    font-weight: bold;
+}
+
+.thead-dark{
+    color:white;
+    background-color:rgb(54, 44, 44);
+}
+td{
+    font-size:18px;
+}
+.userId{
+    font-weight: bold;
+}
